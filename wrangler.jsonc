@@ -1,0 +1,15 @@
+// Cloudflare Workers config: tells Cloudflare how to deploy this site.
+// The site is fully static, so the Worker only serves the built files.
+{
+  // Must match the project name in the Cloudflare dashboard.
+  "name": "ranbirnarang",
+
+  // Which version of Cloudflare's runtime behavior to use. Pinned to the
+  // first deploy date so future Cloudflare changes can't alter the site.
+  "compatibility_date": "2026-10-03",
+
+  // Serve the files Astro builds into dist/.
+  "assets": {
+    "directory": "./dist"
+  }
+}
