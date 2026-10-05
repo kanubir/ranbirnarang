@@ -1,5 +1,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { SITE } from './src/config.ts';
 
 // https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+  // The live address, read from src/config.ts. Astro uses it to build full URLs
+  // (canonical links, social previews, and later the sitemap and RSS feed).
+  site: SITE.url,
+});
