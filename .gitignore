@@ -40,3 +40,8 @@ src/content/blog/_drafts/
 
 # jetbrains setting folder
 .idea/
+
+# Wrangler (Cloudflare CLI): local simulator data from `wrangler dev`, and local secrets
+.wrangler/
+.dev.vars*
+!.dev.vars.example
