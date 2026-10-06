@@ -1,21 +1,10 @@
 ---
-// Site-wide styles, header, and footer. These move into the shared layout in build plan step 2.5.
-import '../styles/global.css';
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config';
 ---
 
-<html lang="en">
-	<head>
-		{/* No title on the home page, so the tab shows just the site title. */}
-		<BaseHead description={SITE.description} />
-	</head>
-	<body>
-		<Header />
-		<h1>Hello, I'm Ranbir</h1>
-		<p>This site is under construction.</p>
-		<Footer />
-	</body>
-</html>
+{/* No title on the home page, so the tab shows just the site title. */}
+<BaseLayout description={SITE.description}>
+  <h1>Hello, I'm Ranbir</h1>
+  <p>This site is under construction.</p>
+</BaseLayout>
