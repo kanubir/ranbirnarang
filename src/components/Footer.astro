@@ -13,7 +13,12 @@ const year = new Date().getFullYear();
       {
         SOCIALS.map((social) => (
           <li>
-            <a href={social.href}>{social.label}</a>
+            {/* Opens in a new tab. rel="noopener" stops the new page from controlling this one. */}
+            <a href={social.href} target="_blank" rel="noopener">
+              {social.label}
+              <span class="external-icon" aria-hidden="true">↗</span>
+              <span class="visually-hidden">(opens in a new tab)</span>
+            </a>
           </li>
         ))
       }
@@ -51,5 +56,10 @@ const year = new Date().getFullYear();
   a {
     display: inline-block;
     padding: var(--space-1) 0;
+  }
+
+  /* Small gap between the label and the new-tab arrow. */
+  .external-icon {
+    margin-inline-start: 0.2em;
   }
 </style>
