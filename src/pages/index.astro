@@ -5,6 +5,72 @@ import { SITE } from '../config';
 
 {/* No title on the home page, so the tab shows just the site title. */}
 <BaseLayout description={SITE.description}>
-  <h1>Hello, I'm Ranbir</h1>
-  <p>This site is under construction.</p>
+  <section class="hero">
+    <h1>{SITE.name}</h1>
+    <p class="tagline">{SITE.role}, building with Cloud and AI</p>
+    <p class="intro">
+      I architect and build distributed systems and microservices,
+      and guide engineering teams through design, code, and production. Most recently I was a
+      Technical Lead at Bell Canada, and before that I worked at IBM. Today I'm focused on helping
+      teams put cloud and AI to practical use, and on helping people build the skills to do the same.
+    </p>
+    <div class="actions">
+      <a class="button button-primary" href="/portfolio">View my work</a>
+      <a class="button" href="/resume">Read my resume</a>
+      <a class="button" href="/contact">Get in touch</a>
+    </div>
+  </section>
+
+  {/* Featured projects: added in build plan step 7.2. */}
+  {/* Latest posts: added in build plan step 6.5. */}
 </BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-5);
+  }
+
+  .tagline {
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+  }
+
+  .intro {
+    margin-top: var(--space-4);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+  }
+
+  /* Links styled as buttons. They stay <a> elements because they go to other pages. */
+  .button {
+    display: inline-block;
+    padding: var(--space-2) var(--space-4);
+    border: 2px solid var(--color-accent);
+    border-radius: var(--radius);
+    color: var(--color-accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .button:hover {
+    background-color: var(--color-surface);
+  }
+
+  /* The main action: filled with the accent color. Text uses the page background color,
+     which has at least 6.4:1 contrast against the accent in both themes. */
+  .button-primary {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .button-primary:hover {
+    background-color: var(--color-accent);
+    text-decoration: underline;
+  }
+</style>
