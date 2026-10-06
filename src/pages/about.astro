@@ -1,0 +1,86 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, SOCIALS } from '../config';
+// Placeholder until the real photo (metadata stripped) replaces this file.
+import portrait from '../assets/profile-placeholder.png';
+
+// Structured data (JSON-LD): tells search engines this site is about a person, and links my profiles.
+// Built as an object and turned into text with JSON.stringify, which escapes it safely.
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE.name,
+  url: SITE.url,
+  jobTitle: SITE.role,
+  sameAs: SOCIALS.map((social) => social.href),
+};
+---
+
+<BaseLayout
+  title="About"
+  description="Technical lead with 10+ years of experience building backend and distributed systems, based in Toronto."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(person)} />
+
+  <article class="prose">
+    <h1>About</h1>
+    {/* Astro resizes this to 200px and 400px WebP copies (sharp on high-resolution screens);
+        priority loads it right away since it's at the top of the page. */}
+    <Image
+      class="portrait"
+      src={portrait}
+      alt="Placeholder for a photo of Ranbir Singh Narang"
+      width={200}
+      height={200}
+      densities={[1, 2]}
+      priority
+    />
+    <p>
+      I am a technical lead with 10+ years of experience building backend and distributed systems.
+      I design systems that stay reliable at scale, and I like to stay hands-on with the code while
+      guiding the team.
+    </p>
+    <p>
+      Most recently, I worked at IBM / Bell Canada, where I helped design and build the Mobility and
+      Residential Services platforms that serve millions of customers. Earlier in my career, I
+      worked across several industries, including logistics, real estate, and banking systems.
+    </p>
+
+    <h2>What I work with</h2>
+    <p>
+      .NET and C#, microservices, event-driven systems with Kafka, REST and GraphQL APIs, Azure, and
+      OpenShift. I also build with AI, including LangChain, RAG pipelines, and AI agents. In my own
+      projects, I use Python with FastAPI, SQLAlchemy, Alembic, and Pydantic, and build web pages
+      with Jinja2, Tailwind, and daisyUI.
+    </p>
+
+    <h2>What I am building now</h2>
+    <p>
+      I am starting a consulting practice that helps teams put cloud and AI to practical use. I am
+      also building a platform where anyone can learn and upskill in AI.
+    </p>
+
+    <h2>Outside work</h2>
+    <p>I am based in Toronto, Ontario. I enjoy tennis and travel.</p>
+  </article>
+</BaseLayout>
+
+<style>
+  /* Round photo above the text on phones... */
+  .portrait {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+  }
+
+  /* ...and beside it on wider screens, with the text flowing around it. */
+  @media (min-width: 48rem) {
+    .portrait {
+      float: right;
+      width: 200px;
+      height: 200px;
+      margin: 0 0 var(--space-4) var(--space-5);
+    }
+  }
+</style>

@@ -165,6 +165,16 @@ hr {
   border-top: 1px solid var(--color-border);
 }
 
+/* Flowing text (About page, later blog posts): space between consecutive elements.
+   "> * + *" means "every direct child that follows another child", so there's no gap above the first one. */
+.prose > * + * {
+  margin-top: var(--space-3);
+}
+
+.prose > h2 {
+  margin-top: var(--space-6);
+}
+
 /* ---------- 4. Accessibility ---------- */
 
 /* A clearly visible outline for keyboard users (not shown on mouse clicks). */

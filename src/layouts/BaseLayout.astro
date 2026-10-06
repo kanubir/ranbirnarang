@@ -21,6 +21,8 @@ const { title, description, image, type } = Astro.props;
 <html lang={SITE.locale}>
   <head>
     <BaseHead title={title} description={description} image={image} type={type} />
+    {/* Extra <head> content from a page, e.g. structured data: <script slot="head" …>. */}
+    <slot name="head" />
   </head>
   <body>
     {/* First thing keyboard users reach: jumps past the navigation to the page content. */}
