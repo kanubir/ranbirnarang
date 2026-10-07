@@ -1,0 +1,120 @@
+---
+// Contact page: a plain HTML form (no JavaScript) that posts to Formspree, which checks for spam
+// (CAPTCHA on its own page, honeypot, its spam filter) and emails the message to me.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CONTACT, SOCIALS } from '../config';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch with Ranbir Singh Narang about cloud, AI, or backend engineering."
+>
+  <article class="prose">
+    <h1>Contact</h1>
+    <p>
+      Have a project in mind, a question about cloud or AI, or just want to say hello? Send me a
+      message and I'll get back to you.
+    </p>
+
+    <form class="contact-form" action={CONTACT.formEndpoint} method="POST">
+      <p class="form-hint">All fields are required.</p>
+
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" autocomplete="name" maxlength="100" required />
+      </div>
+
+      <div class="field">
+        {/* Formspree uses a field named "email" as the reply-to address. */}
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" maxlength="254" required />
+      </div>
+
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" maxlength="5000" required></textarea>
+      </div>
+
+      {/* Honeypot: hidden from people (and screen readers), but bots fill in every field.
+          Formspree silently discards any submission where it has a value. */}
+      <div class="honeypot" aria-hidden="true">
+        <label for="_gotcha">Leave this field empty</label>
+        <input id="_gotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+
+      {/* Subject line of the email Formspree sends me, so these are easy to spot. */}
+      <input type="hidden" name="_subject" value="New message from your website" />
+
+      <button class="button button-primary" type="submit">Send message</button>
+    </form>
+
+    <p class="privacy-note">
+      Your name, email, and message are sent to Formspree, which emails them to me and checks for
+      spam using Google reCAPTCHA. I only use them to reply to you.
+    </p>
+
+    <p>
+      You can also find me on{' '}
+      {
+        SOCIALS.map((social, index) => (
+          <>
+            {index > 0 && ' and '}
+            <a href={social.href} target="_blank" rel="noopener">
+              {social.label}
+              <span class="visually-hidden"> (opens in a new tab)</span>
+            </a>
+          </>
+        ))
+      }.
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .contact-form {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 36rem;
+    margin-top: var(--space-5);
+  }
+
+  .form-hint,
+  .privacy-note {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .field {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  label {
+    font-weight: 600;
+  }
+
+  /* Field borders use the muted text color: at least 6:1 contrast, well above the 3:1
+     that WCAG requires for form controls (--color-border is only for decorative lines). */
+  input,
+  textarea {
+    width: 100%;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-text-muted);
+    border-radius: var(--radius);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  /* Hidden with a class, not an inline style="", so the Phase 9 security policy can block inline styles. */
+  .honeypot {
+    display: none;
+  }
+
+  .contact-form button {
+    justify-self: start;
+  }
+</style>

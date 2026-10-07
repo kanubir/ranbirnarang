@@ -26,3 +26,9 @@ export const NAV = [
   { label: 'Resume', href: '/resume' },
   { label: 'Contact', href: '/contact' },
 ] as const;
+
+// Contact form: Formspree receives submissions and emails them to me. The endpoint is public by
+// design (it has to be in the page's HTML), so it's not a secret.
+export const CONTACT = {
+  formEndpoint: 'https://formspree.io/f/xyekkjeo',
+} as const;

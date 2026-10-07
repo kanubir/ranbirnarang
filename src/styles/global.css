@@ -175,6 +175,35 @@ hr {
   margin-top: var(--space-6);
 }
 
+/* Buttons: used for links styled as buttons (<a class="button">) and real <button>s. */
+.button {
+  display: inline-block;
+  padding: var(--space-2) var(--space-4);
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius);
+  background-color: transparent;
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--color-surface);
+}
+
+/* The main action: filled with the accent color. Text uses the page background color,
+   which has at least 6.4:1 contrast against the accent in both themes. */
+.button-primary {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.button-primary:hover {
+  background-color: var(--color-accent);
+  text-decoration: underline;
+}
+
 /* ---------- 4. Accessibility ---------- */
 
 /* A clearly visible outline for keyboard users (not shown on mouse clicks). */
