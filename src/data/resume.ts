@@ -8,8 +8,6 @@ type YearMonth = `${number}-${number}`;
 export interface Experience {
   role: string;
   company: string;
-  client?: string; // for consulting roles: the client I worked for
-  location?: string; // optional: city and province/country only
   start: YearMonth;
   end: YearMonth | 'present';
   highlights: string[]; // what I built or led, and the impact
@@ -58,7 +56,6 @@ export const resume: Resume = {
     {
       role: 'Technical Lead',
       company: 'Bell Canada',
-      location: 'Toronto, ON',
       start: '2024-08',
       end: '2026-06',
       highlights: [],
@@ -66,8 +63,6 @@ export const resume: Resume = {
     {
       role: 'Technical Lead',
       company: 'IBM',
-      client: 'Bell Canada',
-      location: 'Toronto, ON',
       start: '2019-08',
       end: '2024-08',
       highlights: [],
