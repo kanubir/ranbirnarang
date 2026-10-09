@@ -1,6 +1,7 @@
 ---
 // Site header: my name (links home) and the main navigation, built from NAV in src/config.ts.
 import { SITE, NAV } from '../config';
+import ThemeToggle from './ThemeToggle.astro';
 
 // The current page's path without a trailing slash ("/about/" → "/about"), so it compares cleanly with NAV.
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -28,6 +29,7 @@ function isCurrent(href: string) {
         }
       </ul>
     </nav>
+    <ThemeToggle />
   </div>
 </header>
 

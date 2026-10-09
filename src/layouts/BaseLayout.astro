@@ -20,6 +20,8 @@ const { title, description, image, type } = Astro.props;
 
 <html lang={SITE.locale}>
   <head>
+    {/* Applies the saved or OS theme before the page is drawn (no flash). A file, not inline code. */}
+    <script is:inline src="/theme-init.js"></script>
     <BaseHead title={title} description={description} image={image} type={type} />
     {/* Extra <head> content from a page, e.g. structured data: <script slot="head" …>. */}
     <slot name="head" />

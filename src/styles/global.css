@@ -5,16 +5,17 @@
 /* Named values used everywhere via var(--name). Change a token here and the whole site follows. */
 
 :root {
-  /* Tells the browser this site supports both themes (form controls, scrollbars follow it). */
+  /* Which theme to use. "light dark" = follow the OS; the theme toggle narrows it to one
+     (see :root[data-theme] below). Form controls and scrollbars follow it too. */
   color-scheme: light dark;
 
-  /* Colors: light theme (the default) */
-  --color-bg: #ffffff;
-  --color-surface: #f4f6f8; /* cards, code blocks */
-  --color-text: #1b1f24;
-  --color-text-muted: #57606a; /* dates, captions */
-  --color-accent: #0a58ca; /* links, focus ring */
-  --color-border: #d0d7de;
+  /* Colors: light-dark(light value, dark value). The browser picks one based on color-scheme. */
+  --color-bg: light-dark(#ffffff, #0f1216);
+  --color-surface: light-dark(#f4f6f8, #171b21); /* cards, code blocks */
+  --color-text: light-dark(#1b1f24, #e6e8eb);
+  --color-text-muted: light-dark(#57606a, #9ba5b1); /* dates, captions */
+  --color-accent: light-dark(#0a58ca, #6ea8fe); /* links, focus ring */
+  --color-border: light-dark(#d0d7de, #2f363f);
 
   /* Fonts: the operating system's own fonts, so nothing extra downloads. */
   --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -43,16 +44,13 @@
   --radius: 0.5rem;
 }
 
-/* Dark theme: only the colors change. */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #0f1216;
-    --color-surface: #171b21;
-    --color-text: #e6e8eb;
-    --color-text-muted: #9ba5b1;
-    --color-accent: #6ea8fe;
-    --color-border: #2f363f;
-  }
+/* A theme chosen with the toggle (set on <html> by /theme-init.js and the toggle button). */
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
 }
 
 /* ---------- 2. Reset ---------- */
