@@ -14,6 +14,12 @@ import { formatYearMonth } from '../lib/format';
     <header class="resume-header">
       <h1>{SITE.name}</h1>
       <p class="muted">{SITE.role} · {resume.location}</p>
+      {/* The PDF is printed from this page (see @media print below), so both always match. */}
+      <p class="resume-actions">
+        <a class="button" href="/resume.pdf" download="Ranbir-Singh-Narang-Resume.pdf">
+          Download PDF
+        </a>
+      </p>
     </header>
 
     <section aria-labelledby="summary-heading">
@@ -182,5 +188,33 @@ import { formatYearMonth } from '../lib/format';
   dd {
     margin: 0;
     color: var(--color-text-muted);
+  }
+
+  .resume-actions {
+    margin-top: var(--space-4);
+  }
+
+  /* Printed resume: no button, tighter spacing, and no entry split across two pages. */
+  @media print {
+    .resume {
+      max-width: none;
+    }
+
+    .resume-actions {
+      display: none;
+    }
+
+    section {
+      margin-top: var(--space-4);
+    }
+
+    .entry,
+    .skill-group {
+      break-inside: avoid;
+    }
+
+    h2 {
+      break-after: avoid;
+    }
   }
 </style>
