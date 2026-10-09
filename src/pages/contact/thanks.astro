@@ -1,0 +1,15 @@
+---
+// Shown after the contact form is sent successfully (the form's script opens this page).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Message sent" description="Thanks for getting in touch with Ranbir Singh Narang.">
+  {/* Keep this page out of search results: it only makes sense right after sending a message. */}
+  <meta name="robots" content="noindex" slot="head" />
+
+  <article class="prose">
+    <h1>Thanks for your message</h1>
+    <p>It's on its way to me, and I'll get back to you soon.</p>
+    <p><a href="/">Back to the home page</a></p>
+  </article>
+</BaseLayout>

@@ -31,4 +31,7 @@ export const NAV = [
 // design (it has to be in the page's HTML), so it's not a secret.
 export const CONTACT = {
   formEndpoint: 'https://formspree.io/f/xyekkjeo',
+  // Cloudflare Turnstile SITE key: public by design (the widget needs it in the page).
+  // The SECRET key lives only in Formspree's dashboard, never in this repo.
+  turnstileSiteKey: '0x4AAAAAAFQ-67EHBTc2sVIw',
 } as const;
