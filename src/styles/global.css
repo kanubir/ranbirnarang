@@ -1,6 +1,27 @@
 /* Global styles: design tokens, reset, and base styles for plain HTML elements.
    Loaded once for the whole site. Component-specific styles live in each .astro file. */
 
+/* ---------- 0. Fonts ---------- */
+/* Self-hosted variable fonts (one file covers every weight), Latin characters only.
+   Files and their open licenses (SIL OFL) live in public/fonts/. No third-party font requests.
+   font-display: swap shows the fallback font immediately, then swaps in the web font. */
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/manrope.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains-mono.woff2') format('woff2');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ---------- 1. Design tokens ---------- */
 /* Named values used everywhere via var(--name). Change a token here and the whole site follows. */
 
@@ -17,9 +38,11 @@
   --color-accent: light-dark(#0a58ca, #6ea8fe); /* links, focus ring */
   --color-border: light-dark(#d0d7de, #2f363f);
 
-  /* Fonts: the operating system's own fonts, so nothing extra downloads. */
+  /* Fonts: body text uses the operating system's own font (nothing to download); headings use
+     Manrope and code/labels use JetBrains Mono (see section 0). Each lists fallbacks in order. */
   --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-display: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   /* Type scale. clamp(min, preferred, max) grows smoothly with screen width. */
   --text-sm: 0.875rem;
@@ -114,16 +137,22 @@ h1,
 h2,
 h3,
 h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
   line-height: 1.2;
   text-wrap: balance; /* evens out line lengths in multi-line headings */
 }
 
+/* Large headings look better slightly tighter (negative letter-spacing). */
 h1 {
   font-size: var(--text-2xl);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
 h2 {
   font-size: var(--text-xl);
+  letter-spacing: -0.02em;
 }
 
 h3 {
