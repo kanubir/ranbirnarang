@@ -44,6 +44,7 @@
   --color-accent-soft: light-dark(#d5ece8, #16332f); /* icon tiles */
   --color-warm: light-dark(#e8a33d, #f0b45a); /* amber: glow, terminal highlight (decorative) */
   --color-warm-soft: light-dark(#fbe7c6, #3a2c17); /* highlighter marks behind text */
+  --color-grid: light-dark(rgb(29 27 24 / 0.06), rgb(239 234 226 / 0.05)); /* blueprint grid lines */
 
   /* Fonts: body text uses the operating system's own font (nothing to download); headings use
      Manrope and code/labels use JetBrains Mono (see section 0). Each lists fallbacks in order. */
@@ -70,7 +71,7 @@
 
   /* Layout */
   --content-width: 65ch; /* comfortable reading line length */
-  --page-width: 72rem;
+  --page-width: 68rem;
   --radius: 0.5rem;
 }
 
@@ -132,6 +133,7 @@ h6 {
 
 body {
   min-height: 100vh;
+  overflow-x: clip; /* full-bleed sections (below) must never cause sideways scrolling */
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans);
@@ -236,6 +238,13 @@ hr {
 .button-primary:hover {
   background-color: var(--color-accent);
   text-decoration: underline;
+}
+
+/* Full-bleed: lets a section inside <main> stretch edge to edge of the window (e.g. a tinted
+   band), while its content can stay centered with an inner wrapper. */
+.full-bleed {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
 }
 
 /* ---------- 4. Accessibility ---------- */

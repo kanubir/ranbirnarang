@@ -1,45 +1,207 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TerminalCard from '../components/TerminalCard.astro';
+import Icon from '../components/Icon.astro';
 import { SITE } from '../config';
+
+// "What I do" cards. Icons come from the Icon component.
+const services = [
+  {
+    title: 'Architect',
+    text: 'Distributed, event-driven systems that stay reliable under real traffic.',
+    icon: 'architect',
+  },
+  {
+    title: 'Lead',
+    text: 'Guide engineering teams while staying close to the code and the decisions.',
+    icon: 'lead',
+  },
+  {
+    title: 'Build with AI',
+    text: 'RAG pipelines and AI agents built to solve real problems in everyday work.',
+    icon: 'ai',
+  },
+] as const;
+
+// Numbers strip.
+const facts = [
+  { value: '10+', label: 'years building backend systems' },
+  { value: 'Millions', label: 'of customers on platforms I helped build' },
+  { value: '4', label: 'industries, from telecom to banking' },
+  { value: 'Toronto', label: 'Ontario, Canada' },
+];
 ---
 
 {/* No title on the home page, so the tab shows just the site title. */}
 <BaseLayout description={SITE.description}>
-  <section class="hero">
-    <h1>{SITE.name}</h1>
-    <p class="tagline">{SITE.role}, building with Cloud and AI</p>
-    <p class="intro">
-      I architect and build distributed systems and microservices,
-      and guide engineering teams through design, code, and production. Most recently I was a
-      Technical Lead at Bell Canada, and before that I worked at IBM. Today I'm focused on helping
-      teams put cloud and AI to practical use, and on helping people build the skills to do the same.
-    </p>
-    <div class="actions">
-      {/* Hidden until the Portfolio section is built. When restoring it,
-          make it the primary button again and set "Read my resume" back to class="button".
-      <a class="button button-primary" href="/portfolio">View my work</a> */}
-      <a class="button button-primary" href="/resume">Read my resume</a>
-      <a class="button" href="/contact">Get in touch</a>
+  {/* ---------- Hero ---------- */}
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero-text">
+      <p class="status"><span class="status-dot" aria-hidden="true"></span>Open to consulting conversations · Toronto</p>
+      <h1 id="hero-heading">
+        Hi, I'm Ranbir.<br />
+        <span class="soft">I build systems that scale.</span>
+      </h1>
+      <p class="tagline">
+        Software engineering lead with 10+ years designing{' '}
+        <mark>reliable distributed systems</mark>, now helping teams put <mark>cloud and AI</mark> to
+        practical use.
+      </p>
+      <div class="actions">
+        {/* Hidden until the Portfolio section is built. When restoring it,
+            make it the primary button again and set "Read my resume" back to class="button".
+        <a class="button button-primary" href="/portfolio">View my work</a> */}
+        <a class="button button-primary" href="/resume">Read my resume →</a>
+        <a class="button" href="/contact">Get in touch</a>
+      </div>
     </div>
+    <TerminalCard />
+  </section>
+
+  {/* ---------- What I do (full-width tinted band) ---------- */}
+  <section class="band full-bleed" aria-labelledby="services-heading">
+    <div class="band-inner">
+      <p class="eyebrow" aria-hidden="true">// what I do</p>
+      <h2 id="services-heading">Hands-on, from design to production</h2>
+      <ul class="cards">
+        {
+          services.map((service) => (
+            <li class="card">
+              <span class="icon">
+                <Icon name={service.icon} />
+              </span>
+              <h3>{service.title}</h3>
+              <p>{service.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* ---------- Numbers strip ---------- */}
+  <section class="facts" aria-labelledby="facts-heading">
+    <h2 id="facts-heading" class="visually-hidden">At a glance</h2>
+    <ul>
+      {
+        facts.map((fact) => (
+          <li>
+            <span class="fact-value">{fact.value}</span>
+            <span class="fact-label">{fact.label}</span>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 
   {/* Featured projects: added in build plan step 7.2. */}
   {/* Latest posts: added in build plan step 6.5. */}
+
+  {/* ---------- Closing call to action ---------- */}
+  <section class="closing" aria-labelledby="closing-heading">
+    <p class="eyebrow" aria-hidden="true">// let's talk</p>
+    <h2 id="closing-heading">Have a system to build or untangle?</h2>
+    <p class="closing-text">
+      I'm happy to hear about it, whether it's architecture, a team, or where AI fits.
+    </p>
+    <a class="button button-primary" href="/contact">Get in touch →</a>
+  </section>
 </BaseLayout>
 
 <style>
+  /* ---------- Hero ---------- */
   .hero {
-    padding-block: var(--space-5);
+    position: relative;
+    isolation: isolate; /* keeps the grid and glow (z-index: -1) behind the hero, not behind the page */
+    display: grid;
+    gap: var(--space-6);
+    align-items: center;
+    padding-block: var(--space-4) var(--space-7);
+  }
+
+  /* Blueprint grid behind the hero, fading out toward the edges. */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: -4rem -50vw 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(var(--color-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse 45% 70% at 50% 40%, #000 30%, transparent 75%);
+  }
+
+  /* Soft teal + amber glow on the right. */
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -3rem;
+    right: -8rem;
+    width: 38rem;
+    height: 26rem;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 30% 40%, color-mix(in srgb, var(--color-accent) 18%, transparent), transparent 60%),
+      radial-gradient(circle at 70% 70%, color-mix(in srgb, var(--color-warm) 20%, transparent), transparent 60%);
+    filter: blur(30px);
+  }
+
+  /* Two columns on wide screens; stacked on phones. */
+  @media (min-width: 56rem) {
+    .hero {
+      grid-template-columns: 1.25fr 1fr;
+      gap: var(--space-7);
+    }
+  }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3) var(--space-1) var(--space-2);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-surface);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22a06b;
+    box-shadow: 0 0 0 4px rgb(34 160 107 / 0.18);
+  }
+
+  h1 {
+    margin-top: var(--space-4);
+    font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4rem);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+  }
+
+  /* Second line: softer color. Large text, so 3:1 contrast is enough (it's 3.5:1 / 4.2:1). */
+  .soft {
+    color: var(--color-text-faint);
   }
 
   .tagline {
-    margin-top: var(--space-2);
+    margin-top: var(--space-4);
+    max-width: 34rem;
     color: var(--color-text-muted);
     font-size: var(--text-lg);
+    line-height: 1.5;
   }
 
-  .intro {
-    margin-top: var(--space-4);
+  /* Highlighter-pen effect: a soft amber band behind the lower part of the words. */
+  mark {
+    padding-inline: 2px;
+    background: linear-gradient(transparent 58%, var(--color-warm-soft) 58%);
+    color: var(--color-text);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
   }
 
   .actions {
@@ -47,5 +209,136 @@ import { SITE } from '../config';
     flex-wrap: wrap;
     gap: var(--space-3);
     margin-top: var(--space-5);
+  }
+
+  /* ---------- What I do ---------- */
+  .band {
+    padding-block: var(--space-7);
+    background: var(--color-bg-2);
+    border-block: 1px solid var(--color-border);
+  }
+
+  .band-inner {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--space-3);
+  }
+
+  .eyebrow {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+  }
+
+  h2 {
+    margin-top: var(--space-1);
+    font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.1rem);
+  }
+
+  .cards {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-5);
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 48rem) {
+    .cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .card {
+    padding: var(--space-4);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+  }
+
+  .icon {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    margin-bottom: var(--space-3);
+    border-radius: 12px;
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+  }
+
+  .card h3 {
+    font-size: 1.2rem;
+  }
+
+  .card p {
+    margin-top: var(--space-1);
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+  }
+
+  /* ---------- Numbers strip ---------- */
+  .facts ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5) 0;
+    padding: var(--space-7) 0;
+    border-bottom: 1px solid var(--color-border);
+    list-style: none;
+  }
+
+  @media (min-width: 48rem) {
+    .facts ul {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .facts li + li {
+      border-left: 1px solid var(--color-border);
+    }
+  }
+
+  .facts li {
+    padding-inline: var(--space-4);
+  }
+
+  .facts li:first-child,
+  .facts li:nth-child(3) {
+    padding-left: 0;
+  }
+
+  @media (min-width: 48rem) {
+    .facts li:nth-child(3) {
+      padding-left: var(--space-4);
+    }
+  }
+
+  .fact-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2.1rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .fact-label {
+    display: block;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  /* ---------- Closing ---------- */
+  .closing {
+    padding-block: var(--space-7);
+    text-align: center;
+  }
+
+  .closing h2 {
+    font-size: clamp(1.8rem, 1.2rem + 2.4vw, 2.5rem);
+  }
+
+  .closing-text {
+    max-width: 36rem;
+    margin: var(--space-2) auto var(--space-5);
+    color: var(--color-text-muted);
   }
 </style>

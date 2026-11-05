@@ -1,0 +1,51 @@
+---
+// Small line icons (24×24, stroke only), written as plain SVG markup so no set:html is needed.
+// Decorative: hidden from screen readers, since the text next to each icon says what it means.
+interface Props {
+  name: 'architect' | 'lead' | 'ai';
+}
+
+const { name } = Astro.props;
+---
+
+<svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+  {
+    name === 'architect' && (
+      <>
+        <rect x="3" y="3" width="7" height="7" rx="1.5" />
+        <rect x="14" y="3" width="7" height="7" rx="1.5" />
+        <rect x="8.5" y="14" width="7" height="7" rx="1.5" />
+        <path d="M6.5 10v2h11v-2M12 12v2" />
+      </>
+    )
+  }
+  {
+    name === 'lead' && (
+      <>
+        <circle cx="9" cy="8" r="3.5" />
+        <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" />
+        <path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2 .7 3 2.8 3 6" />
+      </>
+    )
+  }
+  {
+    name === 'ai' && (
+      <>
+        <path d="M12 3l1.8 4.7L18.5 9.5 13.8 11.3 12 16l-1.8-4.7L5.5 9.5l4.7-1.8z" />
+        <path d="M18.5 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z" />
+      </>
+    )
+  }
+</svg>
+
+<style>
+  .icon-svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+</style>

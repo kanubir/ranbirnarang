@@ -1,0 +1,99 @@
+---
+// A decorative "terminal" in the home page hero: my technical signature.
+// It repeats facts shown elsewhere on the page (focus areas, years, scale), so it's hidden from
+// screen readers (aria-hidden) to avoid reading out "tilde whoami" and other command noise.
+---
+
+<div class="terminal" aria-hidden="true">
+  <div class="bar"><span></span><span></span><span></span></div>
+  <div class="lines">
+    <p><span class="prompt">~</span> <span class="cmd">whoami</span></p>
+    <p>Ranbir Singh Narang · tech lead</p>
+    <p><span class="prompt">~</span> <span class="cmd">cat</span> focus.txt</p>
+    <p>distributed systems · microservices</p>
+    <p>event-driven · Azure · <span class="hl">AI / RAG</span></p>
+    <p><span class="prompt">~</span> <span class="cmd">uptime</span> --career</p>
+    <p>10+ years · millions of users served</p>
+    <p><span class="prompt">~</span> <span class="cursor"></span></p>
+  </div>
+</div>
+
+<style>
+  /* The terminal stays dark in both themes, so it has its own colors (all ≥ 4.5:1 on its background). */
+  .terminal {
+    --term-bg: light-dark(#1d1b18, #0b0a09);
+    --term-text: #e9e4da;
+    --term-dim: light-dark(#9c958a, #8d867b);
+    --term-cmd: #7fd8cb;
+    --term-hl: #f0c27a;
+
+    background: var(--term-bg);
+    color: var(--term-text);
+    border: 1px solid rgb(255 255 255 / 0.06);
+    border-radius: 16px;
+    padding-bottom: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.75;
+    box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.35);
+  }
+
+  /* The three "window" dots. */
+  .bar {
+    display: flex;
+    gap: 7px;
+    padding: var(--space-3);
+    border-bottom: 1px solid rgb(255 255 255 / 0.07);
+    margin-bottom: var(--space-2);
+  }
+
+  .bar span {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+  }
+
+  .bar span:nth-child(1) {
+    background: #e0695f;
+  }
+
+  .bar span:nth-child(2) {
+    background: #e8b14f;
+  }
+
+  .bar span:nth-child(3) {
+    background: #5fbf7a;
+  }
+
+  .lines p {
+    max-width: none;
+    padding-inline: var(--space-4);
+  }
+
+  .prompt {
+    color: var(--term-dim);
+  }
+
+  .cmd {
+    color: var(--term-cmd);
+  }
+
+  .hl {
+    color: var(--term-hl);
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1em;
+    background: var(--term-cmd);
+    vertical-align: -0.15em;
+  }
+
+  /* A slight tilt on wide screens only; on phones it sits straight under the text. */
+  @media (min-width: 56rem) {
+    .terminal {
+      transform: rotate(1.2deg);
+    }
+  }
+</style>
