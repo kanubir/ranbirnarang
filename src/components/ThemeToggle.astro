@@ -63,10 +63,11 @@
     height: 2.5rem;
     padding: 0;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    background: transparent;
+    border-radius: 10px;
+    background: var(--color-surface);
     color: var(--color-text);
     cursor: pointer;
+    transition: border-color 150ms ease;
   }
 
   :global(:root[data-theme]) .theme-toggle {
@@ -74,7 +75,7 @@
   }
 
   .theme-toggle:hover {
-    background-color: var(--color-surface);
+    border-color: var(--color-text-faint);
   }
 
   svg {

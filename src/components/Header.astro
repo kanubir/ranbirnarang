@@ -15,7 +15,7 @@ function isCurrent(href: string) {
 
 <header class="site-header">
   <div class="inner">
-    <a class="site-name" href="/">{SITE.name}</a>
+    <a class="brand" href="/">{SITE.name}</a>
     <nav aria-label="Main">
       <ul>
         {
@@ -29,62 +29,86 @@ function isCurrent(href: string) {
         }
       </ul>
     </nav>
-    <ThemeToggle />
+    <div class="toggle-slot">
+      <ThemeToggle />
+    </div>
   </div>
 </header>
 
 <style>
-  .site-header {
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  /* Lines up with the page content; wraps the nav under the name on narrow screens. */
+  /* Phones: name + toggle on the first row, nav on its own row below.
+     Wider screens: name | nav | toggle on one row. */
   .inner {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'brand toggle'
+      'nav nav';
     align-items: center;
-    justify-content: space-between;
     gap: var(--space-2) var(--space-4);
     max-width: var(--page-width);
     margin-inline: auto;
     padding: var(--space-3);
   }
 
-  .site-name {
+  @media (min-width: 48rem) {
+    .inner {
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas: 'brand nav toggle';
+    }
+
+    nav {
+      justify-self: end;
+    }
+  }
+
+  .brand {
+    grid-area: brand;
     color: var(--color-text);
     font-family: var(--font-display);
     font-weight: 700;
+    letter-spacing: -0.01em;
     text-decoration: none;
+  }
+
+  nav {
+    grid-area: nav;
+  }
+
+  .toggle-slot {
+    grid-area: toggle;
   }
 
   ul {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-1) var(--space-2);
+    gap: var(--space-1);
     padding: 0;
     list-style: none;
   }
 
-  /* Padding gives each link a comfortable tap target (WCAG 2.2 asks for at least 24×24 px). */
+  /* Pill-shaped links. Padding keeps each tap target comfortably above WCAG's 24×24 px. */
   nav a {
     display: inline-block;
-    padding: var(--space-1) var(--space-2);
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
     color: var(--color-text-muted);
+    font-size: 0.95rem;
     text-decoration: none;
-    border-radius: var(--radius);
+    transition:
+      background-color 150ms ease,
+      color 150ms ease;
   }
 
   nav a:hover {
+    background-color: var(--color-bg-2);
     color: var(--color-text);
-    text-decoration: underline;
   }
 
-  /* The current page: stronger color, weight, and an accent underline, not color alone. */
+  /* The current page: a filled pill plus bolder text (so it isn't shown by color alone). */
   nav a[aria-current='page'] {
+    background-color: var(--color-bg-2);
     color: var(--color-text);
     font-weight: 600;
-    text-decoration: underline;
-    text-decoration-color: var(--color-accent);
-    text-decoration-thickness: 2px;
   }
 </style>

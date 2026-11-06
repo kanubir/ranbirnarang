@@ -88,6 +88,14 @@
     height: 1em;
     background: var(--term-cmd);
     vertical-align: -0.15em;
+    animation: blink 1.1s steps(1) infinite;
+  }
+
+  /* Cursor blink (switched off under reduced motion). */
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
   }
 
   /* A slight tilt on wide screens only; on phones it sits straight under the text. */

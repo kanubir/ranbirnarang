@@ -51,7 +51,7 @@ const facts = [
         {/* Hidden until the Portfolio section is built. When restoring it,
             make it the primary button again and set "Read my resume" back to class="button".
         <a class="button button-primary" href="/portfolio">View my work</a> */}
-        <a class="button button-primary" href="/resume">Read my resume →</a>
+        <a class="button button-primary" href="/resume">Read my resume <span class="arrow" aria-hidden="true">→</span></a>
         <a class="button" href="/contact">Get in touch</a>
       </div>
     </div>
@@ -104,7 +104,7 @@ const facts = [
     <p class="closing-text">
       I'm happy to hear about it, whether it's architecture, a team, or where AI fits.
     </p>
-    <a class="button button-primary" href="/contact">Get in touch →</a>
+    <a class="button button-primary" href="/contact">Get in touch <span class="arrow" aria-hidden="true">→</span></a>
   </section>
 </BaseLayout>
 
@@ -167,12 +167,20 @@ const facts = [
     font-size: var(--text-sm);
   }
 
+  /* A small green "online" dot with a gentle pulse (switched off under reduced motion). */
   .status-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
     background: #22a06b;
     box-shadow: 0 0 0 4px rgb(34 160 107 / 0.18);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    50% {
+      box-shadow: 0 0 0 7px rgb(34 160 107 / 0.05);
+    }
   }
 
   h1 {
