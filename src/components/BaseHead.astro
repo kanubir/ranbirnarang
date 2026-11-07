@@ -25,7 +25,11 @@ const imageURL = new URL(image, Astro.site);
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalURL} />
+{/* Favicon: my "R" in white on the brand teal, the same in light and dark mode.
+    favicon.ico holds 16, 32 and 48 px versions; iPhones use apple-touch-icon.png (180×180)
+    when the site is added to a home screen. */}
 <link rel="icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
 {/* Fetch the heading font right away (instead of finding it later in the CSS), so the
     headline shows in Manrope almost immediately. crossorigin is required for font preloads. */}
